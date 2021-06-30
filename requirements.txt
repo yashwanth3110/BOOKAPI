@@ -13,6 +13,8 @@
 
 // Requirements
 
+
+
 // Books
 GET
 // We need an API
@@ -31,7 +33,7 @@ update new author
 
 //delete\
 delete a book
-delete a author
+delete an author
 
 
 -------------------------------------------------------------------

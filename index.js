@@ -257,10 +257,51 @@ Method          DELETE
 
 shapeAI.delete("/book/delete/:isbn", (req, res) => {
     const updatedBookDatabase = database.books.filter(
-        (book) => book.ISBN != req.params.isbn);
+        (book) => book.ISBN !== req.params.isbn);
     database.books = updatedBookDatabase;
     return res.json({ books: database.books });
 });
+
+/*
+Route           /book/author/delete
+Description     delete an author from a book
+Access          PUBLIC
+Parameters      isbn,authorId
+Method          DELETE
+*/
+
+shapeAI.delete("/book/author/delete/:isbn/:authorId", (req, res) => {
+    //update the book database
+    database.books.forEach((book) => {
+        if (book.ISBN === req.params.isbn) {
+            const newAuthorList = book.authors.filter(
+                (author) => author !== parseInt(req.params.authorId)
+            );
+            books.authors = newAuthorList;
+            return;
+        };
+    });
+
+    //update the author database
+    database.authors.forEach((author) => {
+        if (author.id === parseInt(req.params.authorId)) {
+            const newBookList = author.books.filter(
+                (book) => book.ISBN !== req.params.isbn
+            );
+            author.books = newBookList;
+            return;
+        }
+    });
+    return res.json({
+        books: database.authors,
+        authors: database.authors,
+        message: "author was deleted"
+
+    });
+});
+
+
+
 
 
 
