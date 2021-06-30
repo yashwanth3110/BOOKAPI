@@ -258,7 +258,7 @@ Method          DELETE
 shapeAI.delete("/book/delete/:isbn", (req, res) => {
     const updatedBookDatabase = database.books.filter(
         (book) => book.ISBN !== req.params.isbn);
-    database.books = updatedBookDatabase;
+    database.books = updatedBookDatabase
     return res.json({ books: database.books });
 });
 
@@ -286,7 +286,7 @@ shapeAI.delete("/book/author/delete/:isbn/:authorId", (req, res) => {
     database.authors.forEach((author) => {
         if (author.id === parseInt(req.params.authorId)) {
             const newBookList = author.books.filter(
-                (book) => book.ISBN !== req.params.isbn
+                (book) => book !== req.params.isbn
             );
             author.books = newBookList;
             return;
@@ -300,6 +300,81 @@ shapeAI.delete("/book/author/delete/:isbn/:authorId", (req, res) => {
     });
 });
 
+
+/*
+Route           /authors/delete
+Description     delete an author from authors
+Access          PUBLIC
+Parameters      authorId
+Method          DELETE
+*/
+
+shapeAI.delete("/authors/delete/:authorId", (req, res) => {
+    const updatedAuthorDatabase = database.authors.filter(
+        (author) => author.id !== parseInt(req.params.authorId)
+    );
+    database.authors = updatedAuthorDatabase;
+    return res.json({
+        authors: database.authors,
+        message: "author was deleted"
+    })
+});
+
+
+/*
+Route           /publications/delete/book
+Description     delete a book from publication
+Access          PUBLIC
+Parameters      isbn,publicationId
+Method          DELETE
+*/
+
+shapeAI.delete("/publications/delete/book/:isbn/:publicationId", (req, res) => {
+    //update publication database
+    database.publications.forEach((publication) => {
+        if (publication.id === parseInt(req.params.publicationId)) {
+            const newBookList = publication.books.filter(
+                (book) => book != req.params.isbn
+            );
+            publication.books = newBookList;
+            return;
+        }
+    });
+    //update book database
+    database.books.forEach((book) => {
+        if (book.ISBN === req.params.isbn) {
+            book.publication = 0;
+        }
+    });
+    return res.json({
+        books: database.books,
+        publications: database.publications,
+        message: "a book in the publication is deleted"
+    })
+});
+
+
+
+
+
+/*
+Route           /publications/delete
+Description     delete a publication from publications
+Access          PUBLIC
+Parameters      publicationId
+Method          DELETE
+*/
+
+shapeAI.delete("/publications/delete/:publicationId", (req, res) => {
+    const updatedPublicationDatabase = database.publications.filter(
+        (publication) => publication.id !== parseInt(req.params.publicationId)
+    );
+    database.publications = updatedPublicationDatabase;
+    return res.json({
+        publications: database.publications,
+        message: "A publication was deleted"
+    });
+});
 
 
 
