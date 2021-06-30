@@ -247,6 +247,22 @@ shapeAI.put("/publication/update/book/:isbn", (req, res) => {
 
 });
 
+/*
+Route           /book/delete
+Description     delete a book
+Access          PUBLIC
+Parameters      isbn
+Method          DELETE
+*/
+
+shapeAI.delete("/book/delete/:isbn", (req, res) => {
+    const updatedBookDatabase = database.books.filter(
+        (book) => book.ISBN != req.params.isbn);
+    database.books = updatedBookDatabase;
+    return res.json({ books: database.books });
+});
+
+
 
 
 
