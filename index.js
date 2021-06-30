@@ -11,6 +11,11 @@ const mongoose = require("mongoose");
 // Database
 const database = require("./database/index");
 
+//models
+const BookModels = require("./database/book");
+const AuthorModels = require("./database/author");
+const PublicationModels = require("./database/publication");
+
 // Initializing express
 const shapeAI = express();
 

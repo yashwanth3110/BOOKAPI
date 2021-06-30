@@ -9,7 +9,7 @@ const AuthorSchema = mongoose.Schema({
 
 });
 
-const AuthorModel = mongoose.model(AuthorSchema);
+const AuthorModel = mongoose.model("Authors", AuthorSchema);
 
 
 
