@@ -1,11 +1,30 @@
+require("dotenv").config();
+
+
 // Frame work
 const express = require("express");
+
+
+
+const mongoose = require("mongoose");
 
 // Database
 const database = require("./database/index");
 
 // Initializing express
 const shapeAI = express();
+
+
+mongoose
+    .connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
+
+    }).then(() => console.log("connection established!!!!!"));
+
+
 
 // Configurations
 shapeAI.use(express.json());
@@ -257,7 +276,9 @@ Method          DELETE
 
 shapeAI.delete("/book/delete/:isbn", (req, res) => {
     const updatedBookDatabase = database.books.filter(
-        (book) => book.ISBN !== req.params.isbn);
+        (book) => book.ISBN !== req.params.isbn
+    );
+
     database.books = updatedBookDatabase
     return res.json({ books: database.books });
 });
