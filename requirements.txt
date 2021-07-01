@@ -17,11 +17,11 @@
 
 // Books
 GET
-// We need an API
-// to get all books --- *done
-// to get specific book  --- *done
-// to get a list of books based on category --- *done
-// to get a list of books based on author
+// We need an API                                 *done
+// to get all books ---                           *done
+// to get specific book  ---                      *done
+// to get a list of books based on category ---   *done
+// to get a list of books based on author         *done
 
 //post
 new book
@@ -53,8 +53,8 @@ delete an author
 
 GET
 // We need an API
-// to get all authors
-// to get specific author
+// to get all authors                         *done
+// to get specific author                     
 // to get a list of authors based on a book.
 
 -----------------------------------------------------------------
